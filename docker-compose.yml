@@ -3,7 +3,7 @@ services:
     www:
         build: .
         ports: 
-            - "80:80"
+            - "82:80"
         volumes:
             - ./www:/var/www/html
         links:
@@ -12,8 +12,6 @@ services:
             - default
     db:
         image: mysql:8.0
-        ports: 
-            - "3306:3306"
         command: --default-authentication-plugin=mysql_native_password
         environment:
             MYSQL_DATABASE: dbname
@@ -31,10 +29,12 @@ services:
         links: 
             - db:db
         ports:
-            - 8000:80
+            - 83:80
         environment:
             MYSQL_USER: root
             MYSQL_PASSWORD: test
-            MYSQL_ROOT_PASSWORD: test 
+            MYSQL_ROOT_PASSWORD: test
+        networks:
+            - default
 volumes:
     persistent:
